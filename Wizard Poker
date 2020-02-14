@@ -1,0 +1,109 @@
+import java.util.*;
+
+public class Exam1 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> cards = new ArrayList<>(Arrays.asList(scanner.nextLine().split(":")));
+        List<String> dek = new ArrayList<>(Arrays.asList());
+        String command = scanner.nextLine();
+        while (!command.equals("Ready")) {
+            List<String> commandParts = Arrays.asList(command.split("\\s+"));
+            String type = commandParts.get(0);
+            String print = commandParts.get(1);
+            switch (type) {
+                case "Add":
+                    addContact(cards, print, dek);
+                    break;
+                case "Insert":
+                    Jump(cards, print, Integer.parseInt(commandParts.get(2)), dek);
+                    break;
+                case "Remove":
+                    remove(dek, print);
+                    break;
+                case "Swap":
+                    Swamp(dek, print, commandParts.get(2));
+                    break;
+                case "Shuffle":
+                    Collections.reverse(dek);
+                    break;
+                default:
+                    throw new IllegalStateException("Unknow command" + type);
+            }
+            command = scanner.nextLine();
+        }
+
+        for (int i = 0; i < dek.size(); i++) {
+            System.out.print(dek.get(i) + " ");
+
+
+        }
+    }
+
+    public static String addContact(List<String> contacts, String addContact, List<String> dek) {
+
+        if (contacts.contains(addContact)) {
+            dek.add(addContact);
+            return null;
+        } else {
+            System.out.println("Card not found.");
+
+        }
+        return null;
+
+
+    }
+
+    public static String Jump(List<String> contacts, String addContact, int index, List<String> dek) {
+        if (contacts.contains(addContact) && index >= 0 && index < dek.size()) {
+
+            dek.add(index, addContact);
+            return null;
+        } else {
+            System.out.println("Error!");
+
+        }
+        return null;
+
+    }
+
+    public static String remove(List<String> dek, String cardName) {
+
+        if (dek.contains(cardName)) {
+            dek.remove(cardName);
+        } else {
+            System.out.println("Card not found.");
+
+        }
+
+        return null;
+    }
+
+    public static String Swamp(List<String> dek, String cardOne, String cardTwo) {
+        boolean one = false;
+        boolean two = false;
+        int positionOne = 0;
+        int positionTwo = 0;
+        for (int i = 0; i < dek.size(); i++) {
+
+
+            if (cardOne.contains(dek.get(i))) {
+                one = true;
+                positionOne = i;
+                if (two) {
+                    Collections.swap(dek, positionOne, positionTwo);
+                    return null;
+                }
+            }
+            if (cardTwo.contains(dek.get(i))) {
+                two = true;
+                positionTwo = i;
+                if (one) {
+                    Collections.swap(dek, positionOne, positionTwo);
+                    return null;
+                }
+            }
+        }
+
+        return null;
+    }
+}
