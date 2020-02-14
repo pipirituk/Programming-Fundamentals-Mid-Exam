@@ -1,0 +1,29 @@
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+public class Exam3 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+       double amount = Double.parseDouble(scanner.nextLine());
+        double workers = Double.parseDouble(scanner.nextLine());
+       double biscuits = Double.parseDouble(scanner.nextLine());
+
+        double total=0;
+
+        for (int i = 1; i <= 30; i++) {
+            if (i % 3 == 0) {
+                total +=workers *amount * (0.75);
+            } else {
+                total += workers * amount;
+            }
+        }
+        double diffrence=Math.abs(total-biscuits);
+        if (total < biscuits) {
+            System.out.printf("You have produced %.0f biscuits for the past month.%nYou produce %.2f percent less biscuits.",total, diffrence/biscuits*(100));
+        } else {
+
+            System.out.printf("You have produced %.0f biscuits for the past month.%nYou produce %.2f percent more biscuits.",total,diffrence/biscuits*(100));
+
+        }
+    }
+}
