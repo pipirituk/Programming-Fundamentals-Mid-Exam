@@ -1,0 +1,76 @@
+import java.util.*;
+
+public class Exam2 {
+
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> wepon = new ArrayList<>(Arrays.asList(scanner.nextLine().split("\\|")));
+
+
+        String command = scanner.nextLine();
+
+        while (!command.equals("Done")) {
+            List<String> commandParts = Arrays.asList(command.split(" "));
+            String type = commandParts.get(0);
+            String move = commandParts.get(1);
+            switch (type) {
+                case "Move":
+                    switch (move) {
+                        case "Left":{
+                            int index = Integer.parseInt(commandParts.get(2));
+                            if (index-1 >= 0 && index-1 <wepon.size()){
+                                Collections.swap(wepon,index-1, index);
+                            }
+                      }
+                        break;
+                        case "Right": {
+                            int index = Integer.parseInt(commandParts.get(2));
+                            if (index+1 >= 0 && index +1 < wepon.size()) {
+                                Collections.swap(wepon,index+1, index);
+                            }
+                        }
+                            break;
+                        default:
+                            throw new IllegalStateException("Unknow command" + move);
+                    }
+                    break;
+                case "Check":
+                    switch (move) {
+                        case "Odd":
+                            for (int i = 0; i < wepon.size(); i++) {
+                                if (!(i %2==0)) {
+                                    System.out.print(wepon.get(i) + " ");
+                                }
+                            }
+                            System.out.println();
+                            break;
+                        case "Even":
+                            for (int i = 0; i < wepon.size(); i++) {
+                                if (i%2==0) {
+                                    System.out.print(wepon.get(i) + " ");
+                                }
+                            }
+                            System.out.println();
+                            break;
+                        default:
+                            throw new IllegalStateException("Unknow command" + move);
+                    }
+
+                    break;
+                default:
+                    throw new IllegalStateException("Unknow command" + type);
+            }
+            command = scanner.nextLine();
+
+
+        }
+        System.out.print("You crafted " );
+        for (int i = 0; i < wepon.size(); i++) {
+
+            System.out.print(wepon.get(i));
+        }
+
+        System.out.print("!");
+    }
+}
