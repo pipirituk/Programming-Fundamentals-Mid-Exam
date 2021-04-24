@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner (System.in);
+        String k = scanner.nextLine ();
+        String[] total = k.split (", ");
+        int desk = Integer.parseInt (total[0]);
+        int counter = 0;
+        int[][] classRoom = new int[desk / 2][2];
+        for (int row = 0; row < desk / 2; row++) {
+            // for (int col = 0; col < arr[row].length; col++) {
+            for (int col = 0; col < 2; col++) {
+                counter++;
+                classRoom[row][col] = counter;
+
+            }
+        }
+        for (int i = 1; i < total.length; i++) {
+            int student = Integer.parseInt (total[i]);
+            int row = student / 2 - 1;
+            int col = 0;
+            if (student % 2 != 1) {
+                col = 1;
+            }
+            if (student % 2 == 1) {
+                row += 1;
+            }
+
+            if (student == 2) {
+                col = 1;
+                row = 0;
+            }
+            if (row >= classRoom.length) {
+                row += classRoom.length - 1;
+            }
+            if (col > classRoom[row].length) {
+                col = classRoom[row].length;
+            }
+
+            classRoom[row][col] = 0;
+
+
+        }
+
+        int countorFreeSeats = 0;
+        for (int row = 0; row < classRoom.length; row++) {
+            for (int col = 0; col < classRoom[row].length; col++) {
+                if (classRoom.length-1>row) {
+                    if (classRoom[row][col] != 0) {
+                        if (classRoom[row].length<1) {
+                            if (classRoom[row][col + 1] != 0) {
+                                countorFreeSeats += 1;
+
+                            }
+                        }
+
+                        if (classRoom[row + 1][col] != 0) {
+                            countorFreeSeats += 1;
+                        }
+                    }
+
+                }
+
+            }
+        }
+        System.out.println (countorFreeSeats);
+    }
